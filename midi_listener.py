@@ -8,9 +8,7 @@ print("스크립트를 종료하려면 Ctrl+C를 누르세요.")
 
 try:
     with mido.open_input(port_name) as inport:
-        # 무한 루프를 돌면서 계속 확인합니다.
         while True:
-            # 대기 중인 메시지가 있는지 확인하고, 있으면 처리합니다. (차단하지 않음)
             for msg in inport.iter_pending():
                 if msg.type == 'note_on' and msg.velocity > 0:
                     note = msg.note
@@ -20,7 +18,6 @@ try:
                     note = msg.note
                     print(f"음(Note): {note} 꺼짐")
             
-            # CPU 사용량이 100%가 되는 것을 방지하기 위해 아주 잠깐 대기합니다.
             time.sleep(0.01)
 
 except KeyboardInterrupt:
